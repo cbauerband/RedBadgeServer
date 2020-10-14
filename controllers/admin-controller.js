@@ -16,7 +16,7 @@ router.post("/registerAdmin", function (req, res) {
         expiresIn: 60 * 60 * 48,
       });
       res.json({
-        username: user,
+        username: admin,
         message: "Admin successfully created",
         sessionToken: token,
       });

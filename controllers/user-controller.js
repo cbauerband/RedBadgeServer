@@ -2,6 +2,7 @@ const router = require("express").Router();
 let User = require("../db").import("../models/user"); 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const validateSession = require("../middleware/validate-session");
 
 //SIGNUP
 router.post('/registerUser', function(req, res) {
@@ -53,7 +54,7 @@ router.post('/loginUser', function(req, res) {
     })
 });
 
-//GET user info
+//GET user info by id
 router.get('/userInfo/:id', (req, res) => {
     let id = req.params.id;
     User.findAll({
@@ -62,5 +63,14 @@ router.get('/userInfo/:id', (req, res) => {
     .then(user => res.status(200).json(user))
     .catch(err => res.status(500).json({error: err}))
 });
+
+//GET ALL USERS
+router.get("/userInfo", validateSession, (req, res) => {
+    let userid = req.user.id;
+    User.findAll({
+    })
+      .then((user) => res.status(200).json(user))
+      .catch((err) => res.status(500).json({ error: err.message }));
+  });
 
 module.exports = router;
