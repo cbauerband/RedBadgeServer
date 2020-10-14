@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const BookList = require("../db").import("../models/booklist");
+const Book = require("./book-controller");
 const validateSession = require("../middleware/validate-session");
 
 //USERS CREATE/POST A NEW BOOKLIST
@@ -22,6 +23,16 @@ router.post("/create", validateSession, (req, res) => {
     .catch((err) => res.status(500).json({ error: err }));
 });
 
+//GET ALL BOOKLISTS
+router.get("/booklist/booklists", validateSession, (req, res) => {
+  let userid = req.user.id;
+  BookList.findAll({
+    where: { owner: userid },
+  })
+    .then((booklist) => res.status(200).json(booklist))
+    .catch((err) => res.status(500).json({ error: err }));
+});
+
 //GET ALL BOOKLISTS BY ID
 router.get("/booklist/:id", validateSession, (req, res) => {
   //   if (req.user.accounttype != "user") {
@@ -37,7 +48,7 @@ router.get("/booklist/:id", validateSession, (req, res) => {
     },
   })
     .then((booklists) => res.status(200).json(booklists))
-    .catch((err) => res.status(500).json({ error: err }));
+    .catch((err) => res.status(500).json({ error: err.message }));
 });
 
 //UPDATE A BOOKLIST NAME OR DESCRIPTION
