@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             allownull: false,
             unique: false,
         },
-
+        
         owner: {
             type: DataTypes.INTEGER
         }
