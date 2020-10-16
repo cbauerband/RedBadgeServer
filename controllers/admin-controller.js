@@ -19,6 +19,7 @@ router.post("/registerAdmin", function (req, res) {
         username: admin,
         message: "Admin successfully created",
         sessionToken: token,
+        isAdmin: true,
       });
     })
     .catch((err) => res.send(err));
@@ -43,6 +44,7 @@ router.post("/loginAdmin", function (req, res) {
             admin: admin,
             message: "Admin successfully logged in",
             sessionToken: token,
+            isAdmin: true,
           });
         } else {
           res.status(502).send({ error: "Login Failed" });
