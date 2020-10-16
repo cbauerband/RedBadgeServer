@@ -22,6 +22,17 @@ router.post("/create", validateSession, (req, res) => {
     .catch((err) => res.status(500).json({ error: err }));
 });
 
+//GET ALL BOOKLISTS
+router.get("/booklists", validateSession, (req, res) => {
+  let userid = req.user.id;
+  BookList.findAll({
+    where: { owner: userid },
+  })
+    .then((booklist) => res.status(200).json(booklist))
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
+
+
 //GET ALL BOOKLISTS BY ID
 router.get("/booklist/:id", validateSession, (req, res) => {
   //   if (req.user.accounttype != "user") {
