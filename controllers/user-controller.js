@@ -73,4 +73,14 @@ router.get("/userInfo", validateSession, (req, res) => {
       .catch((err) => res.status(500).json({ error: err.message }));
   });
 
+  
+//* **DELETE USER** *//
+router.delete("/deleteuser/:id", validateSession, function (req, res) {
+    const query = { where: { id: req.params.id} };
+  
+    User.destroy(query)
+      .then(() => res.status(200).json({ message: "User Removed" }))
+      .catch((err) => res.status(500).json({ error: err.message }));
+  });
+
 module.exports = router;
