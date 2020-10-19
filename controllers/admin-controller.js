@@ -2,6 +2,7 @@ const router = require("express").Router();
 let Admin = require("../db").import("../models/admin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const validateSession = require("../middleware/validate-session");
 
 //SIGNUP
 router.post("/registerAdmin", function (req, res) {
@@ -65,5 +66,6 @@ router.get("/adminInfo/:id", (req, res) => {
     .then((admin) => res.status(200).json(admin))
     .catch((err) => res.status(500).json({ error: err }));
 });
+
 
 module.exports = router;
