@@ -65,8 +65,8 @@ router.get('/userInfo/:id', (req, res) => {
 });
 
 //GET ALL USERS
-router.get("/userInfo", validateSession, (req, res) => {
-    let userid = req.user.id;
+router.get("/userInfo/", validateSession, (req, res) => {
+    // let userid = req.user.id;
     User.findAll({
     })
       .then((user) => res.status(200).json(user))
